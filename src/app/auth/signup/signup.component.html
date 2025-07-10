@@ -1,0 +1,64 @@
+<div class="signup-container">
+    <div class="signup-card">
+      <div class="signup-card-header">
+        <h2>Create Account</h2>
+        <p>Get started with your free account</p>
+      </div>
+      
+      <form (ngSubmit)="onSubmit()" class="signup-card-body">
+        <div class="signup-form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" 
+                 [(ngModel)]="user.name" required style="width: 90%;"
+                 placeholder="Enter your full name">
+        </div>
+        
+        <div class="signup-form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" 
+                 [(ngModel)]="user.email" required style="width: 90%;"
+                 placeholder="Enter your email">
+        </div>
+        
+        <div class="signup-form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" 
+                 [(ngModel)]="user.password" required style="width: 90%;"
+                 (input)="checkPasswords()"
+                 placeholder="••••••••">
+        </div>
+        
+        <div class="signup-form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" 
+                 [(ngModel)]="user.confirmPassword" required style="width: 90%;"
+                 (input)="checkPasswords()"
+                 placeholder="••••••••">
+          <div *ngIf="passwordMismatch" class="password-mismatch">
+            Passwords don't match
+          </div>
+        </div>
+        
+        <div *ngIf="errorMessage" class="signup-error">
+          {{ errorMessage }}
+        </div>
+        
+        <div *ngIf="successMessage" class="signup-success">
+          {{ successMessage }}
+        </div>
+        
+        <button type="submit" class="signup-btn" 
+                [disabled]="passwordMismatch || isLoading">
+          <span *ngIf="!isLoading">Sign Up</span>
+          <span *ngIf="isLoading">Creating account...</span>
+        </button>
+        
+        <div class="signup-footer">
+          <p>Already have an account? <a routerLink="/login">Login</a></p>
+          <!-- <div class="terms">
+            By signing up, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>
+          </div> -->
+        </div>
+      </form>
+    </div>
+  </div>

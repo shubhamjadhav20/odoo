@@ -1,7 +1,7 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app/app.component';
-import { config } from './app/app.config.server';
-
-const bootstrap = () => bootstrapApplication(AppComponent, config);
-
-export default bootstrap;
+export default async function bootstrap() {
+    const { appConfig } = await import('./app/app.config');
+    const { bootstrapApplication } = await import('@angular/platform-browser');
+    const { AppComponent } = await import('./app/app.component');
+    
+    return bootstrapApplication(AppComponent, appConfig);
+  }
