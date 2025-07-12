@@ -49,6 +49,14 @@ export class QuestionsComponent implements OnInit {
       this.sharedService.getOneQuestion(query.id).subscribe((data) => {
         console.log('$getOneQuestion ', data);
         this.selectedQuestion = data.data;
+        this.selectedQuestion?.answers.forEach((ans: any) => {
+          if (ans._id == this.selectedQuestion.acceptedAnswerId) {
+            ans.isAccepted = true;
+          } else {
+            ans.isAccepted = false;
+          }
+        });
+
         this.isLoading = false;
       });
     });
@@ -61,18 +69,42 @@ export class QuestionsComponent implements OnInit {
       });
       this.newAnswer = '';
     }
+    console.log(
+      'Submit answer called',
+      this.description,
+      this.selectedQuestion.answers,
+      this.newAnswer
+    );
+    this.sharedService
+      .submitAnswer(this.description, this.selectedQuestion._id)
+      .subscribe((data: any) => {
+        console.log('Data from submitAnswer', data);
+      });
   }
 
-  vote(answer: any, delta: number) {
+  voteQuestion(question: any, delta: number) {
+    question.votes += delta;
+
+    //
+  }
+  voteAnswer(answer: any, delta: number) {
+    if (!answer.votes) {
+      answer.votes = 0;
+    }
     answer.votes += delta;
+    console.log('voteAnswer ', delta, answer.votes);
   }
   acceptAnswer(index: number) {
+    let selectedId = '';
     this.selectedQuestion?.answers?.forEach((ans: any, idx: number) => {
       if (index == idx) {
+        selectedId = ans._id;
         ans.isAccepted = true;
       } else {
         ans.isAccepted = false;
       }
     });
+    // this.share
+    //call update api to update question accepted id
   }
 }

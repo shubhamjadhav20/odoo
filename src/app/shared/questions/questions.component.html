@@ -2,6 +2,7 @@
   <div class="titleAndVote">
     <app-vote-box
       [votes]="selectedQuestion.upvote - selectedQuestion.downvote"
+      (voteChange)="voteQuestion(selectedQuestion, $event)"
     ></app-vote-box>
     <!-- (voteChange)="vote(answer, $event)" -->
     <h2 class="question-title">{{ selectedQuestion.title }}</h2>
@@ -9,7 +10,9 @@
   <p class="question-desc">{{ selectedQuestion.desc }}</p>
 
   <div class="tags">
-    <span *ngFor="let tag of selectedQuestion.tags" class="tag">{{ tag }}</span>
+    <span *ngFor="let tag of selectedQuestion.tags" class="tag">{{
+      tag?.name
+    }}</span>
   </div>
 
   <hr />
@@ -24,11 +27,11 @@
     >
       <app-vote-box
         [votes]="answer.votes"
-        (voteChange)="vote(answer, $event)"
+        (voteChange)="voteAnswer(answer, $event)"
       ></app-vote-box>
 
       <div class="answer-body">
-        <p [innerText]="answer.title"></p>
+        <p [innerHtml]="answer.descriptions"></p>
         <!-- Green tick moved to the right -->
         <span *ngIf="answer.isAccepted" class="accepted-icon">✔</span>
         <span

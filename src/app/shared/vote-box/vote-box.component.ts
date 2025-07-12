@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule, CommonModule],
   styleUrls: ['./vote-box.component.scss'],
 })
-export class VoteBoxComponent {
+export class VoteBoxComponent implements OnInit {
   @Input() votes = 0;
   @Input() hasVoted: boolean = false;
   @Output() voteChange = new EventEmitter<number>();
@@ -17,9 +17,13 @@ export class VoteBoxComponent {
   previousVotes = 0;
   direction: 'up' | 'down' | null = null;
   lastAction: 'up' | 'down' | null = null;
-
+  ngOnInit() {
+    if (!this.votes) {
+      this.votes = 0;
+    }
+  }
   upvote() {
-    if (this.hasVoted) return;
+    if (this.hasVoted && this.lastAction == 'up') return;
     this.hasVoted = true;
     this.direction = 'up';
     this.lastAction = 'up';
@@ -27,7 +31,7 @@ export class VoteBoxComponent {
   }
 
   downvote() {
-    if (this.hasVoted) return;
+    if (this.hasVoted && this.lastAction == 'down') return;
     this.hasVoted = true;
 
     this.direction = 'down';
