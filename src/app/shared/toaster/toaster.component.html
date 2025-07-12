@@ -1,0 +1,40 @@
+<!-- [ngClass]="{ 'successMessage': data.isSuccess,'warningMessage': data.isWarn, 'infoMessage': data.isInfo,'errorMessage': data.isError,'errorsMessage':data.isError}"> -->
+<div
+  class="toasterDiv"
+  [ngClass]="{
+    successMessage: data.isSuccess,
+    warningMessage: data.isWarn,
+    infoMessage: data.isInfo,
+    errorMessage: data.isError,
+    errorsMessage: data.isError,
+  }"
+>
+  <div class="leftBar"></div>
+
+  <div class="toasterContent">
+    <mat-icon class="toasterIcon">{{ getIcon() }}</mat-icon>
+    <div class="toasterText">
+      <!-- {{ data | json }} -->
+      <div
+        class="title"
+        [ngClass]="{
+          successMessage: data.isSuccess,
+          warningMessage: data.isWarn,
+          infoMessage: data.isInfo,
+          errorMessage: data.isError,
+          errorsMessage: data.isError,
+        }"
+      >
+        {{ data.title }}
+      </div>
+      <div class="message" *ngIf="data.message?.length > 0">
+        <!-- [customStyle]="data.element" -->
+        {{ data.message }}
+      </div>
+    </div>
+
+    <mat-icon class="messageModalCross" (click)="closeToaster()"
+      >cross</mat-icon
+    >
+  </div>
+</div>

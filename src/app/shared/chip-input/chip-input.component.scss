@@ -1,0 +1,42 @@
+.chip-container {
+  width: 100%;
+
+  .full-width {
+    width: 100%;
+  }
+
+  mat-chip {
+    margin: 2px 4px;
+    padding: 4px 8px;
+    background: #e0e0e0;
+    color: rgba(0, 0, 0, 0.87);
+    border-radius: 16px;
+    font-size: 14px;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      margin-left: 4px;
+    }
+  }
+
+  input {
+    flex: 1;
+    min-width: 150px;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-chip-row {
+  margin: 0.25rem;
+
+  button[matChipRemove] {
+    mat-icon {
+      font-size: 18px;
+    }
+  }
+}

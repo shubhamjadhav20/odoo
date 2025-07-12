@@ -1,0 +1,237 @@
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+
+  .ask-btn {
+    background: #2962ff;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-inline: 1rem;
+    &:hover {
+      background: #0039cb;
+    }
+  }
+
+  .filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    button {
+      background: #ffffff10;
+      border: 1px solid #ccc;
+      padding: 8px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      color: #eee;
+      backdrop-filter: blur(6px);
+    }
+
+    .active {
+      background: #7c4dff;
+      color: white;
+      border: none;
+    }
+  }
+
+  .search {
+    display: flex;
+    align-items: center;
+
+    input {
+      padding: 8px 12px;
+      border-radius: 10px 0 0 10px;
+      border: 1px solid #ccc;
+      outline: none;
+      min-width: 120px;
+    }
+
+    button {
+      padding: 8px 12px;
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 0 10px 10px 0;
+      cursor: pointer;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .filters,
+    .search {
+      width: calc(100% - 2rem);
+      justify-content: space-between;
+      margin-top: 10px;
+      margin-inline: 1rem;
+    }
+
+    .search {
+      justify-content: flex-start;
+
+      input {
+        flex: 1;
+      }
+    }
+  }
+}
+
+.question-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: unHide 1s;
+
+  .question-card {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+
+    .answer-count {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      background: #1de9b6;
+      color: #000;
+      font-weight: bold;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+    }
+
+    .question-info {
+      flex: 1;
+
+      h3 {
+        margin: 0;
+        font-size: 1.2rem;
+        color: #fff;
+      }
+
+      .desc {
+        color: #bbb;
+        font-size: 0.95rem;
+        margin: 6px 0;
+      }
+
+      .tags {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+
+        .tag {
+          background: #00e5ff33;
+          color: #00e5ff;
+          padding: 4px 10px;
+          font-size: 0.8rem;
+          border-radius: 6px;
+        }
+      }
+
+      .user {
+        margin-top: 6px;
+        font-size: 0.85rem;
+        color: #aaa;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+
+      .answer-count {
+        position: static;
+        align-self: flex-end;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+@keyframes unHide {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1s;
+  }
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+  .disabled {
+    cursor: not-allowed;
+  }
+  button {
+    margin-top: 12px;
+    background: linear-gradient(to right, #00e5ff, #7c4dff);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    :hover {
+      filter: brightness(1.1);
+    }
+  }
+}
+.overlayLoader {
+  width: 50px;
+  aspect-ratio: 1;
+  top: 40vh;
+  left: 49%;
+  border-radius: 50%;
+  color: teal;
+  border: 8px solid #0000;
+  border-right-color: var(--global-loader-spinner-color);
+  position: relative;
+  animation: l24 1s infinite linear;
+}
+.overlayLoader:before,
+.overlayLoader:after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: inherit;
+  animation: inherit;
+  animation-duration: 2s;
+}
+.overlayLoader:after {
+  animation-duration: 4s;
+}
+@keyframes l24 {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+.noDataFound {
+  width: 100%;
+  height: 88vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: white;
+}

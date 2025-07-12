@@ -1,0 +1,69 @@
+<div class="question-header" *ngIf="!isLoading">
+  <button class="ask-btn" (click)="askQuestion()">Ask New Question</button>
+
+  <div class="filters">
+    <button
+      [ngClass]="activeFilter == 0 ? 'active' : ''"
+      (click)="activeFilter = 0"
+    >
+      Newest
+    </button>
+    <button
+      [ngClass]="activeFilter == 1 ? 'active' : ''"
+      (click)="activeFilter = 1"
+    >
+      Unanswered
+    </button>
+    <button class="dropdown">More ▼</button>
+  </div>
+
+  <div class="search">
+    <input
+      (keydown.enter)="search(searchText)"
+      [(ngModel)]="searchText"
+      type="text"
+      placeholder="Search"
+    />
+    <button (click)="search(searchText)">🔍</button>
+  </div>
+</div>
+<div *ngIf="isLoading" class="overlayLoader"></div>
+<div *ngIf="!isLoading && questionCount == 0" class="noDataFound">
+  List Empty
+</div>
+<div class="question-list" *ngIf="!isLoading">
+  <div
+    class="question-card"
+    *ngFor="let question of questions"
+    (click)="goToSingleQuestion(question)"
+  >
+    <div class="answer-count">{{ question?.answers?.length || 0 }} ans</div>
+
+    <div class="question-info">
+      <h3>{{ question.title }}</h3>
+      <p class="desc">{{ question.desc }}</p>
+      <div class="tags">
+        <span class="tag" *ngFor="let tag of question.tags">{{ tag }}</span>
+      </div>
+      <p class="user">👤 {{ question.user }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="pagination" *ngIf="!isLoading">
+  <button
+    clas="previousPage"
+    [ngClass]="activePage == 1 ? 'disabled' : ''"
+    (click)="activePage == 1 ? '' : changePage(-1)"
+  >
+    Back
+  </button>
+  {{ activePage }}
+  <button
+    class="nextPage"
+    (click)="activePage >= totalPages ? '' : changePage(1)"
+    [ngClass]="activePage >= totalPages ? 'disabled' : ''"
+  >
+    Next
+  </button>
+</div>

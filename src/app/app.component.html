@@ -5,5 +5,67 @@
   </nav>
 </header> -->
 <main>
-  <router-outlet></router-outlet>
+  <div class="header" *ngIf="!checkIsLogin()">
+    <div class="logo" routerLink="home">StackIt</div>
+    <nav class="nav-buttons">
+      <!-- <a routerLink="/home" routerLinkActive="active">Home</a> -->
+      <mat-icon class="navIcon" routerLink="home">home</mat-icon>
+      <mat-icon
+        class="navIcon"
+        [ngClass]="notifications?.length > 0 ? 'notificationIcon' : ''"
+        [mat-menu-trigger-for]="notificationMenu"
+        >notifications</mat-icon
+      >
+      <!-- <mat-icon class="navIcon" routerLink="=/home">account_circle</mat-icon> -->
+      <!-- <mat-icon class="navIcon" routerLink="=/home">menu</mat-icon> -->
+
+      <!-- <a routerLink="/ask" routerLinkActive="active">Ask</a>
+        -->
+
+      <!-- <a routerLink="/profile" routerLinkActive="active">Profile</a> -->
+      <!-- <button (click)="sharedService.logout()">Logout</button> -->
+      <button mat-icon-button [matMenuTriggerFor]="userMenu">
+        <mat-icon class="navIcon">account_circle</mat-icon>
+      </button>
+    </nav>
+  </div>
+  <div class="routerOutlet">
+    <router-outlet></router-outlet>
+  </div>
 </main>
+<mat-menu #notificationMenu="matMenu" class="notification-menu">
+  <h4 class="menu-title">Notifications</h4>
+  <div class="notification-list">
+    <div
+      class="notification-item"
+      *ngFor="let n of notifications"
+      [class.unread]="!n.read"
+    >
+      {{ n.title }}
+    </div>
+  </div>
+  <button mat-button class="mark-read-btn" (click)="markAllAsRead()">
+    Mark all as read
+  </button>
+</mat-menu>
+
+<mat-menu #userMenu="matMenu">
+  <label
+    style="
+      height: 24px !important;
+      min-height: 24px;
+      max-height: 24px;
+      padding: 4px 14px;
+      width: 100%;
+    "
+    >User 1</label
+  >
+  <button
+    mat-menu-item
+    style="height: 24px !important; min-height: 24px; max-height: 24px"
+    (click)="sharedService.logout()"
+  >
+    <mat-icon>logout</mat-icon>
+    <span>Logout</span>
+  </button>
+</mat-menu>

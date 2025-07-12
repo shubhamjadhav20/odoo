@@ -1,13 +1,13 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from './auth.service';
-
+import { SharedService } from './shared.service';
+import { share } from 'rxjs';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const authService = inject(AuthService);
+  const sharedService = inject(SharedService);
   const router = inject(Router);
 
-  if (authService.isLoggedIn()) {
+  if (sharedService.isLoggedIn()) {
     return true;
   } else {
     router.navigate(['/login'], { queryParams: { returnUrl: state.url } });

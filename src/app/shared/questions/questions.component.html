@@ -1,0 +1,67 @@
+<div class="container" *ngIf="!isLoading">
+  <div class="titleAndVote">
+    <app-vote-box
+      [votes]="selectedQuestion.upvote - selectedQuestion.downvote"
+    ></app-vote-box>
+    <!-- (voteChange)="vote(answer, $event)" -->
+    <h2 class="question-title">{{ selectedQuestion.title }}</h2>
+  </div>
+  <p class="question-desc">{{ selectedQuestion.desc }}</p>
+
+  <div class="tags">
+    <span *ngFor="let tag of selectedQuestion.tags" class="tag">{{ tag }}</span>
+  </div>
+
+  <hr />
+
+  <div class="answers-section">
+    <h3>Answers</h3>
+
+    <div
+      class="answer"
+      *ngFor="let answer of selectedQuestion.answers; let index = index"
+      [ngClass]="{ 'accepted-answer': answer.isAccepted }"
+    >
+      <app-vote-box
+        [votes]="answer.votes"
+        (voteChange)="vote(answer, $event)"
+      ></app-vote-box>
+
+      <div class="answer-body">
+        <p [innerText]="answer.title"></p>
+        <!-- Green tick moved to the right -->
+        <span *ngIf="answer.isAccepted" class="accepted-icon">✔</span>
+        <span
+          class="accept-text"
+          *ngIf="!answer.isAccepted"
+          (click)="acceptAnswer(index)"
+          >Accept this answer</span
+        >
+      </div>
+    </div>
+
+    <div class="submit-answer">
+      <h4>Submit Your Answer</h4>
+      <p-editor
+        [(ngModel)]="description"
+        name="description"
+        [style]="{ 'min-height': '250px', height: '250px' }"
+        styleClass="custom-editor"
+      >
+      </p-editor>
+      <div class="editor-toolbar">
+        <!-- Simulated rich text toolbar (non-functional) -->
+        <!-- <button>B</button><button>I</button><button>U</button>
+        <button>🔗</button><button>📷</button><button>😊</button>
+      </div> -->
+
+        <!-- <textarea
+      [(ngModel)]="newAnswer"
+      placeholder="Type your answer..."
+    ></textarea> -->
+        <button class="submit-btn" (click)="submitAnswer()">Submit</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isLoading" class="overlayLoader"></div>
+</div>

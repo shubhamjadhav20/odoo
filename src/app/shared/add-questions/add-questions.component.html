@@ -1,0 +1,38 @@
+<div class="ask-container">
+  <!-- <header class="nav-bar">
+      <h2>StackIt</h2>
+      <nav>
+        <a href="#">Home</a>
+        <span class="icon">🔔</span>
+        <img class="avatar" src="https://i.pravatar.cc/30" alt="User" />
+      </nav>
+    </header> -->
+
+  <h3>Ask Question</h3>
+  <div class="formClass">
+    <form (ngSubmit)="submitQuestion()" #form="ngForm">
+      <label for="title">Title</label>
+      <input id="title" name="title" [(ngModel)]="title" required />
+
+      <label for="description">Description</label>
+      <p-editor
+        [(ngModel)]="description"
+        name="description"
+        [style]="{ 'min-height': '250px', height: '250px' }"
+        styleClass="custom-editor"
+      >
+      </p-editor>
+
+      <label for="tags">Tags (comma separated)</label>
+      <app-chip-input
+        [(ngModel)]="tags"
+        name="tags"
+        placeholder="Add tags (comma separated)"
+      ></app-chip-input>
+
+      <button type="submit" class="submit-btn" [disabled]="form.invalid">
+        Submit
+      </button>
+    </form>
+  </div>
+</div>

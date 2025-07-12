@@ -1,1 +1,52 @@
-/* You can add global styles to this file, and also import other style files */
+// @import "primeng/themes/lara/lara-light-blue.css";
+// @import "primeng/resources/primeng.css";
+// @import "primeicons/primeicons.css";
+
+html,
+body {
+  height: 100%;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  // font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: "Urbanist", sans-serif;
+  background: linear-gradient(135deg, #1e1e2f, #111118);
+  // background: linear-gradient(135deg, #121212, #1a1a2e);
+  min-height: 100vh;
+  //   padding: 20px;
+}
+
+/* Fix icon paths */
+.p-editor-container {
+  .ql-snow .ql-stroke {
+    stroke: currentColor !important;
+  }
+
+  .ql-snow .ql-fill {
+    fill: currentColor !important;
+  }
+
+  .ql-snow .ql-picker {
+    color: #495057 !important;
+  }
+}
+
+/* Ensure icons are visible */
+.pi {
+  font-family: primeicons !important;
+}
+
+/* Fix toolbar spacing */
+.ql-toolbar.ql-snow {
+  padding: 0.5rem !important;
+  border-radius: 4px 4px 0 0 !important;
+  background: #ccc !important;
+}
+
+.ql-container.ql-snow {
+  border-radius: 0 0 4px 4px !important;
+  border: 1px solid #ccc;
+}
